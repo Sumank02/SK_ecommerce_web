@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Admin Login | E-COMMERCE WEBSITE BY SK </title>
+    <link rel="stylesheet" href="login.css">
+    <!-- favicon -->
+    <link rel="icon" href="https://img.freepik.com/premium-vector/sk-logo-design_705304-207.jpg?w=740" type="image/gif" sizes="16x16">
+    <!-- header links -->
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <!-- HEADER -->
+    <!-- <div id="1"></div>
+    <script>
+        load("header.html");
+        function load(url)
+        {
+            req = new XMLHttpRequest();
+            req.open("GET", url, false);
+            req.send(null);
+            document.getElementById(1).innerHTML = req.responseText;
+        }
+    </script> -->
+
+    <!-- HEADER END -->
+
+    <div class="container">
+        <div class="form-container" id="loginFormContainer">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit">Login</button>
+                <p id="loginErrorMessage" class="error-message"></p>
+                <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+            </form>
+        </div>
+
+        <div class="form-container" id="signupFormContainer" style="display: none;">
+            <h2>Signup</h2>
+            <form id="signupForm">
+                <div class="input-group">
+                    <label for="signupUsername">Username</label>
+                    <input type="text" id="signupUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit">Sign Up</button>
+                <p id="signupErrorMessage" class="error-message"></p>
+                <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+<!-- FOOTER -->
+<div id="4"></div>
+<script>
+    load("footer.html");
+    function load(url)
+    {
+        req = new XMLHttpRequest();
+        req.open("GET", url, false);
+        req.send(null);
+        document.getElementById(4).innerHTML = req.responseText;
+    }
+</script>
+<script src="login.js"></script>
+</html>
