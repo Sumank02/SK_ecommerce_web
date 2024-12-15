@@ -4,7 +4,7 @@
  
  
 ### Home page
-![1]([https://sk-ecommerce-web.vercel.app/index.html)])
+![1](https://github.com/Sumank02/SK_ecommerce_web/blob/main/Web_Snap/shopbay%20page.png?raw=true))
 
 
 
