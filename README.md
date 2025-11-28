@@ -2,10 +2,8 @@
  A mobile responsive sample of E-Commerce Website using HTML, CSS, JavaScript and API's
  
  
- 
 ### Home page
 ![1](https://github.com/Sumank02/SK_ecommerce_web/blob/main/Web_Snap/shopbay%20page.png?raw=true)
-
 
 
 ### Admin page
