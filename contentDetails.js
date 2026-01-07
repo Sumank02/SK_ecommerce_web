@@ -62,8 +62,7 @@ function dynamicContentDetails(ob)
     h3ProductPreviewDiv.appendChild(h3ProductPreviewText)
     productPreviewDiv.appendChild(h3ProductPreviewDiv)
 
-    let i;
-    for(i=0; i<ob.photos.length; i++)
+    for(let i = 0; i < ob.photos.length; i++)
     {
         let imgTagProductPreviewDiv = document.createElement('img')
         imgTagProductPreviewDiv.id = 'previewImg'
@@ -71,7 +70,7 @@ function dynamicContentDetails(ob)
         imgTagProductPreviewDiv.onclick = function(event)
         {
             console.log("clicked" + this.src)
-            imgTag.src = ob.photos[i]
+            imgTag.src = this.src
             document.getElementById("imgDetails").src = this.src 
             
         }
@@ -84,7 +83,7 @@ function dynamicContentDetails(ob)
     let buttonTag = document.createElement('button')
     buttonDiv.appendChild(buttonTag)
 
-    buttonText = document.createTextNode('Add to Cart')
+    const buttonText = document.createTextNode('Add to Cart')
     buttonTag.onclick  =   function()
     {
         let order = id+" "
