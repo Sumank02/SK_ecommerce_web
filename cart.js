@@ -83,7 +83,7 @@ let buttonLink = document.createElement('a')
 buttonLink.href = '/orderPlaced.html?'
 buttonTag.appendChild(buttonLink)
 
-buttonText = document.createTextNode('Place Order')
+const buttonText = document.createTextNode('Place Order')
 buttonTag.onclick = function()
 {
     console.log("clicked")
@@ -101,7 +101,7 @@ httpRequest.onreadystatechange = function()
         if(this.status == 200)
         {
             // console.log('call successful');
-            contentTitle = JSON.parse(this.responseText)
+            const contentTitle = JSON.parse(this.responseText)
 
             let counter = Number(document.cookie.split(',')[1].split('=')[1])
             document.getElementById("totalItem").innerHTML = ('Total Items: ' + counter)
