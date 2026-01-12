@@ -9,6 +9,7 @@
     <link rel="icon" href="https://img.freepik.com/premium-vector/sk-logo-design_705304-207.jpg?w=740" type="image/gif" sizes="16x16">
     <!-- EXTERNAL LINKS -->
     <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="include.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <style>
@@ -49,6 +50,12 @@
 
 </head>
 <body>
+    <!-- HEADER -->
+    <div id="1"></div>
+    <script>
+        include("header.html","1");
+    </script>
+
     <section>
             <div id="containerSlider">
                 <div id="slidingImage"> <img src="img1.png" alt="image1"> </div>
@@ -57,6 +64,13 @@
                 <div id="slidingImage"> <img src="img4.png" alt="image4"> </div>
             </div>
     </section>
+
+    <!-- FOOTER -->
+    <div id="4"></div>
+    <script>
+        include("footer.html","4");
+    </script>
+
 </body>
     <!-- <script src=“https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js”></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
