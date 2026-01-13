@@ -8,8 +8,6 @@
     <!-- favicon -->
     <link rel="icon" href="https://img.freepik.com/premium-vector/sk-logo-design_705304-207.jpg?w=740" type="image/gif" sizes="16x16">
     <!-- EXTERNAL LINKS -->
-    <script src="jQuery3.4.1.js"></script>
-    <script src="include.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <style>
@@ -50,12 +48,6 @@
 
 </head>
 <body>
-    <!-- HEADER -->
-    <div id="1"></div>
-    <script>
-        include("header.html","1");
-    </script>
-
     <section>
             <div id="containerSlider">
                 <div id="slidingImage"> <img src="img1.png" alt="image1"> </div>
@@ -65,26 +57,7 @@
             </div>
     </section>
 
-    <!-- FOOTER -->
-    <div id="4"></div>
-    <script>
-        include("footer.html","4");
-    </script>
-
 </body>
     <!-- <script src=“https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js”></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-    <script>
-        $(document).ready(function()
-        {
-        $('#containerSlider').slick({
-            dots: true,
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            });
-        });
-    </script>
 </html>

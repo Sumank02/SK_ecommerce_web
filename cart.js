@@ -36,7 +36,6 @@ function dynamicCartSection(ob,itemCounter)
 
     // console.log(boxContainerDiv);
 
-    buttonLink.appendChild(buttonText)
     cartContainer.appendChild(boxContainerDiv)
     cartContainer.appendChild(totalContainerDiv)
     // let cartMain = document.createElement('div')
@@ -67,7 +66,6 @@ function amountUpdate(amount)
     totalh4Text.id = 'toth4'
     totalh4.appendChild(totalh4Text)
     totalDiv.appendChild(totalh4)
-    totalDiv.appendChild(buttonDiv)
     console.log(totalh4);
 }
 
@@ -88,6 +86,7 @@ buttonTag.onclick = function()
 {
     console.log("clicked")
 }  
+buttonLink.appendChild(buttonText)  
 //dynamicCartSection()
 // console.log(dynamicCartSection());
 
