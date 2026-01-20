@@ -1,7 +1,4 @@
-console.clear()
-
 let id = location.search.split('?')[1]
-console.log(id)
 
 if(document.cookie.indexOf(',counter=')>=0)
 {
@@ -19,16 +16,13 @@ function dynamicContentDetails(ob)
     imageSectionDiv.id = 'imageSection'
 
     let imgTag = document.createElement('img')
-     imgTag.id = 'imgDetails'
-     //imgTag.id = ob.photos
-     imgTag.src = ob.preview
+    imgTag.id = 'imgDetails'
+    imgTag.src = ob.preview
 
     imageSectionDiv.appendChild(imgTag)
 
     let productDetailsDiv = document.createElement('div')
     productDetailsDiv.id = 'productDetails'
-
-    // console.log(productDetailsDiv);
 
     let h1 = document.createElement('h1')
     let h1Text = document.createTextNode(ob.name)
@@ -37,7 +31,6 @@ function dynamicContentDetails(ob)
     let h4 = document.createElement('h4')
     let h4Text = document.createTextNode(ob.brand)
     h4.appendChild(h4Text)
-    console.log(h4);
 
     let detailsDiv = document.createElement('div')
     detailsDiv.id = 'details'
@@ -69,7 +62,6 @@ function dynamicContentDetails(ob)
         imgTagProductPreviewDiv.src = ob.photos[i]
         imgTagProductPreviewDiv.onclick = function(event)
         {
-            console.log("clicked" + this.src)
             imgTag.src = this.src
             document.getElementById("imgDetails").src = this.src 
             
@@ -95,12 +87,9 @@ function dynamicContentDetails(ob)
         }
         document.cookie = "orderId=" + order + ",counter=" + counter
         document.getElementById("badge").innerHTML = counter
-        console.log(document.cookie)
     }
     buttonTag.appendChild(buttonText)
 
-
-    console.log(mainContainer.appendChild(imageSectionDiv));
     mainContainer.appendChild(imageSectionDiv)
     mainContainer.appendChild(productDetailsDiv)
     productDetailsDiv.appendChild(h1)
@@ -128,16 +117,13 @@ let httpRequest = new XMLHttpRequest()
     {
         if(this.readyState === 4 && this.status == 200)
         {
-            console.log('connected!!');
             let contentDetails = JSON.parse(this.responseText)
             {
-                console.log(contentDetails);
                 dynamicContentDetails(contentDetails)
             }
         }
         else
         {
-            console.log('not connected!');
         }
     }
 }
