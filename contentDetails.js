@@ -1,10 +1,17 @@
 let id = location.search.split('?')[1]
 
-if(document.cookie.indexOf(',counter=')>=0)
-{
-    let counter = document.cookie.split(',')[1].split('=')[1]
-    document.getElementById("badge").innerHTML = counter
+// Initialize cart in localStorage if not exists
+if (!localStorage.getItem('cart')) {
+    localStorage.setItem('cart', JSON.stringify({ items: [], counter: 0 }))
 }
+
+// Update badge with cart counter
+function updateBadge() {
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    document.getElementById("badge").innerHTML = cart.counter
+}
+
+updateBadge()
 
 function dynamicContentDetails(ob)
 {
@@ -76,17 +83,13 @@ function dynamicContentDetails(ob)
     buttonDiv.appendChild(buttonTag)
 
     const buttonText = document.createTextNode('Add to Cart')
-    buttonTag.onclick  =   function()
+    buttonTag.onclick = function()
     {
-        let order = id+" "
-        let counter = 1
-        if(document.cookie.indexOf(',counter=')>=0)
-        {
-            order = id + " " + document.cookie.split(',')[0].split('=')[1]
-            counter = Number(document.cookie.split(',')[1].split('=')[1]) + 1
-        }
-        document.cookie = "orderId=" + order + ",counter=" + counter
-        document.getElementById("badge").innerHTML = counter
+        const cart = JSON.parse(localStorage.getItem('cart'))
+        cart.items.push(Number(id))
+        cart.counter += 1
+        localStorage.setItem('cart', JSON.stringify(cart))
+        updateBadge()
     }
     buttonTag.appendChild(buttonText)
 
@@ -107,26 +110,12 @@ function dynamicContentDetails(ob)
     return mainContainer
 }
 
-
-
-// BACKEND CALLING
-
-let httpRequest = new XMLHttpRequest()
-{
-    httpRequest.onreadystatechange = function()
-    {
-        if(this.readyState === 4 && this.status == 200)
-        {
-            let contentDetails = JSON.parse(this.responseText)
-            {
-                dynamicContentDetails(contentDetails)
-            }
-        }
-        else
-        {
-        }
-    }
-}
-
-httpRequest.open('GET', 'https://5d76bf96515d1a0014085cf9.mockapi.io/product/'+id, true)
-httpRequest.send()  
+// BACKEND CALLING - Using Fetch API
+fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + id)
+    .then(response => response.json())
+    .then(contentDetails => {
+        dynamicContentDetails(contentDetails)
+    })
+    .catch(error => {
+        console.error('Error fetching product details:', error)
+    })  

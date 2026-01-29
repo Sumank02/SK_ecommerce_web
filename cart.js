@@ -1,9 +1,15 @@
-if(document.cookie.indexOf(',counter=')>=0)
-{
-    let counter = document.cookie.split(',')[1].split('=')[1]
-    document.getElementById("badge").innerHTML = counter
+// Initialize cart in localStorage if not exists
+if (!localStorage.getItem('cart')) {
+    localStorage.setItem('cart', JSON.stringify({ items: [], counter: 0 }))
 }
 
+// Update badge with cart counter
+function updateBadge() {
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    document.getElementById("badge").innerHTML = cart.counter
+}
+
+updateBadge()
 
 let cartContainer = document.getElementById('cartContainer')
 
@@ -11,7 +17,7 @@ let boxContainerDiv = document.createElement('div')
 boxContainerDiv.id = 'boxContainer'
 
 // DYNAMIC CODE TO SHOW THE SELECTED ITEMS IN YOUR CART
-function dynamicCartSection(ob,itemCounter)
+function dynamicCartSection(ob, itemCounter)
 {
     let boxDiv = document.createElement('div')
     boxDiv.id = 'box'
@@ -59,7 +65,6 @@ function amountUpdate(amount)
     totalDiv.appendChild(totalh4)
 }
 
-
 let buttonDiv = document.createElement('div')
 buttonDiv.id = 'button'
 totalDiv.appendChild(buttonDiv)
@@ -74,45 +79,35 @@ buttonTag.appendChild(buttonLink)
 const buttonText = document.createTextNode('Place Order')
 buttonLink.appendChild(buttonText)
 
-// BACKEND CALL
-let httpRequest = new XMLHttpRequest()
+// BACKEND CALL - Using Fetch API
 let totalAmount = 0
-httpRequest.onreadystatechange = function()
-{
-    if(this.readyState === 4)
-    {
-        if(this.status == 200)
-        {
-            const contentTitle = JSON.parse(this.responseText)
+fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product')
+    .then(response => response.json())
+    .then(contentTitle => {
+        const cart = JSON.parse(localStorage.getItem('cart'))
+        const counter = cart.counter
+        document.getElementById("totalItem").innerHTML = ('Total Items: ' + counter)
 
-            let counter = Number(document.cookie.split(',')[1].split('=')[1])
-            document.getElementById("totalItem").innerHTML = ('Total Items: ' + counter)
-
-            let item = document.cookie.split(',')[0].split('=')[1].split(" ")
-
-            let i;
-            let totalAmount = 0
-            for(i=0; i<counter; i++)
-            {
-                let itemCounter = 1
-                for(let j = i+1; j<counter; j++)
-                {   
-                    if(Number(item[j]) == Number(item[i]))
-                    {
-                        itemCounter +=1;
-                    }
-                }
-                totalAmount += Number(contentTitle[item[i]-1].price) * itemCounter
-                dynamicCartSection(contentTitle[item[i]-1],itemCounter)
-                i += (itemCounter-1)
-            }
-            amountUpdate(totalAmount)
+        const items = cart.items
+        let totalAmount = 0
+        
+        // Count occurrences of each item
+        const itemCount = {}
+        for (let i = 0; i < items.length; i++) {
+            itemCount[items[i]] = (itemCount[items[i]] || 0) + 1
         }
-    }
-}
 
-httpRequest.open('GET', 'https://5d76bf96515d1a0014085cf9.mockapi.io/product', true)
-httpRequest.send()
+        // Display items and calculate total
+        for (const itemId in itemCount) {
+            const itemCounter = itemCount[itemId]
+            totalAmount += Number(contentTitle[itemId - 1].price) * itemCounter
+            dynamicCartSection(contentTitle[itemId - 1], itemCounter)
+        }
+        amountUpdate(totalAmount)
+    })
+    .catch(error => {
+        console.error('Error fetching products:', error)
+    })
 
 
 
