@@ -38,36 +38,27 @@ let mainContainer = document.getElementById("mainContainer");
 let containerClothing = document.getElementById("containerClothing");
 let containerAccessories = document.getElementById("containerAccessories");
 
-// BACKEND CALLING
-
-let httpRequest = new XMLHttpRequest();
-
-httpRequest.onreadystatechange = function() {
-  if (this.readyState === 4) {
-    if (this.status == 200) {
-      contentTitle = JSON.parse(this.responseText);
-      if (document.cookie.indexOf(",counter=") >= 0) {
-        var counter = document.cookie.split(",")[1].split("=")[1];
-        document.getElementById("badge").innerHTML = counter;
-      }
-      for (let i = 0; i < contentTitle.length; i++) {
-        if (contentTitle[i].isAccessory) {
-          containerAccessories.appendChild(
-            dynamicClothingSection(contentTitle[i])
-          );
-        } else {
-          containerClothing.appendChild(
-            dynamicClothingSection(contentTitle[i])
-          );
-        }
-      }
-    } else {
+// BACKEND CALLING - Using Fetch API
+fetch("https://5d76bf96515d1a0014085cf9.mockapi.io/product")
+  .then(response => response.json())
+  .then(data => {
+    contentTitle = data;
+    if (document.cookie.indexOf(",counter=") >= 0) {
+      const counter = document.cookie.split(",")[1].split("=")[1];
+      document.getElementById("badge").innerHTML = counter;
     }
-  }
-};
-httpRequest.open(
-  "GET",
-  "https://5d76bf96515d1a0014085cf9.mockapi.io/product",
-  true
-);
-httpRequest.send();
+    for (let i = 0; i < contentTitle.length; i++) {
+      if (contentTitle[i].isAccessory) {
+        containerAccessories.appendChild(
+          dynamicClothingSection(contentTitle[i])
+        );
+      } else {
+        containerClothing.appendChild(
+          dynamicClothingSection(contentTitle[i])
+        );
+      }
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching products:', error);
+  });
