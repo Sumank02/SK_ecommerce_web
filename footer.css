@@ -22,6 +22,12 @@ body
     color: lightslategray;
     cursor: pointer;
 }
+
+/* Utility link class to replace inline styles */
+a.no-decor {
+    color: inherit;
+    text-decoration: none;
+}
 #webFooter
 {
     padding-top: 30px;
