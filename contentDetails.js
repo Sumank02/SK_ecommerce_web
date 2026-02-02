@@ -1,4 +1,4 @@
-let id = location.search.split('?')[1]
+const id = location.search.split('?')[1]
 
 // Initialize cart in localStorage if not exists
 if (!localStorage.getItem('cart')) {
@@ -15,56 +15,56 @@ updateBadge()
 
 function dynamicContentDetails(ob)
 {
-    let mainContainer = document.createElement('div')
+    const mainContainer = document.createElement('div')
     mainContainer.id = 'containerD'
     document.getElementById('containerProduct').appendChild(mainContainer);
 
-    let imageSectionDiv = document.createElement('div')
+    const imageSectionDiv = document.createElement('div')
     imageSectionDiv.id = 'imageSection'
 
-    let imgTag = document.createElement('img')
+    const imgTag = document.createElement('img')
     imgTag.id = 'imgDetails'
     imgTag.src = ob.preview
 
     imageSectionDiv.appendChild(imgTag)
 
-    let productDetailsDiv = document.createElement('div')
+    const productDetailsDiv = document.createElement('div')
     productDetailsDiv.id = 'productDetails'
 
-    let h1 = document.createElement('h1')
-    let h1Text = document.createTextNode(ob.name)
+    const h1 = document.createElement('h1')
+    const h1Text = document.createTextNode(ob.name)
     h1.appendChild(h1Text)
 
-    let h4 = document.createElement('h4')
-    let h4Text = document.createTextNode(ob.brand)
+    const h4 = document.createElement('h4')
+    const h4Text = document.createTextNode(ob.brand)
     h4.appendChild(h4Text)
 
-    let detailsDiv = document.createElement('div')
+    const detailsDiv = document.createElement('div')
     detailsDiv.id = 'details'
 
-    let h3DetailsDiv = document.createElement('h3')
-    let h3DetailsText = document.createTextNode('Rs ' + ob.price)
+    const h3DetailsDiv = document.createElement('h3')
+    const h3DetailsText = document.createTextNode('Rs ' + ob.price)
     h3DetailsDiv.appendChild(h3DetailsText)
 
-    let h3 = document.createElement('h3')
-    let h3Text = document.createTextNode('Description')
+    const h3 = document.createElement('h3')
+    const h3Text = document.createTextNode('Description')
     h3.appendChild(h3Text)
 
-    let para = document.createElement('p')
-    let paraText = document.createTextNode(ob.description)
+    const para = document.createElement('p')
+    const paraText = document.createTextNode(ob.description)
     para.appendChild(paraText)
 
-    let productPreviewDiv = document.createElement('div')
+    const productPreviewDiv = document.createElement('div')
     productPreviewDiv.id = 'productPreview'
 
-    let h3ProductPreviewDiv = document.createElement('h3')
-    let h3ProductPreviewText = document.createTextNode('Product Preview')
+    const h3ProductPreviewDiv = document.createElement('h3')
+    const h3ProductPreviewText = document.createTextNode('Product Preview')
     h3ProductPreviewDiv.appendChild(h3ProductPreviewText)
     productPreviewDiv.appendChild(h3ProductPreviewDiv)
 
     for(let i = 0; i < ob.photos.length; i++)
     {
-        let imgTagProductPreviewDiv = document.createElement('img')
+        const imgTagProductPreviewDiv = document.createElement('img')
         imgTagProductPreviewDiv.id = 'previewImg'
         imgTagProductPreviewDiv.src = ob.photos[i]
         imgTagProductPreviewDiv.onclick = function(event)
@@ -76,10 +76,10 @@ function dynamicContentDetails(ob)
         productPreviewDiv.appendChild(imgTagProductPreviewDiv)
     }
 
-    let buttonDiv = document.createElement('div')
+    const buttonDiv = document.createElement('div')
     buttonDiv.id = 'button'
 
-    let buttonTag = document.createElement('button')
+    const buttonTag = document.createElement('button')
     buttonDiv.appendChild(buttonTag)
 
     const buttonText = document.createTextNode('Add to Cart')
@@ -108,7 +108,7 @@ function dynamicContentDetails(ob)
 
 
     return mainContainer
-}
+} 
 
 // BACKEND CALLING - Using Fetch API
 fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + id)
