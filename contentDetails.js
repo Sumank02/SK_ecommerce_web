@@ -1,5 +1,25 @@
 const id = location.search.split('?')[1]
 
+// Validate product ID (must be a positive integer)
+function isValidProductId(id) {
+    if (!id) return false;
+    const numId = Number(id);
+    return Number.isInteger(numId) && numId > 0;
+}
+
+// Validate product object has required fields
+function isValidProduct(product) {
+    return product && 
+           typeof product.name === 'string' && product.name.trim() !== '' &&
+           typeof product.preview === 'string' && product.preview !== '' &&
+           typeof product.price === 'number' && product.price >= 0;
+}
+
+if (!isValidProductId(id)) {
+    console.error('Invalid product ID:', id);
+    document.getElementById('containerProduct').innerHTML = '<p style="color: red;">Invalid product ID. Please go back and try again.</p>';
+}
+
 // Initialize cart in localStorage if not exists
 if (!localStorage.getItem('cart')) {
     localStorage.setItem('cart', JSON.stringify({ items: [], counter: 0 }))
@@ -114,8 +134,14 @@ function dynamicContentDetails(ob)
 fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + id)
     .then(response => response.json())
     .then(contentDetails => {
-        dynamicContentDetails(contentDetails)
+        if (isValidProduct(contentDetails)) {
+            dynamicContentDetails(contentDetails)
+        } else {
+            console.error('Invalid product data received:', contentDetails);
+            document.getElementById('containerProduct').innerHTML = '<p style="color: red;">Failed to load product details. Invalid data received.</p>';
+        }
     })
     .catch(error => {
-        console.error('Error fetching product details:', error)
+        console.error('Error fetching product details:', error);
+        document.getElementById('containerProduct').innerHTML = '<p style="color: red;">Failed to load product details. Please try again later.</p>';
     })  
