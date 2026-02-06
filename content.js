@@ -1,4 +1,14 @@
 let contentTitle = [];
+
+// Validate product object has required fields
+function isValidProduct(product) {
+    return product && 
+           typeof product.id === 'number' && product.id > 0 &&
+           typeof product.name === 'string' && product.name.trim() !== '' &&
+           typeof product.preview === 'string' && product.preview !== '' &&
+           typeof product.price === 'number' && product.price >= 0;
+}
+
 function dynamicClothingSection(ob) {
   const boxDiv = document.createElement("div");
   boxDiv.id = "box";
@@ -48,14 +58,18 @@ fetch("https://5d76bf96515d1a0014085cf9.mockapi.io/product")
       document.getElementById("badge").innerHTML = counter;
     }
     for (let i = 0; i < contentTitle.length; i++) {
-      if (contentTitle[i].isAccessory) {
-        containerAccessories.appendChild(
-          dynamicClothingSection(contentTitle[i])
-        );
+      if (isValidProduct(contentTitle[i])) {
+        if (contentTitle[i].isAccessory) {
+          containerAccessories.appendChild(
+            dynamicClothingSection(contentTitle[i])
+          );
+        } else {
+          containerClothing.appendChild(
+            dynamicClothingSection(contentTitle[i])
+          );
+        }
       } else {
-        containerClothing.appendChild(
-          dynamicClothingSection(contentTitle[i])
-        );
+        console.warn('Skipping invalid product:', contentTitle[i]);
       }
     }
   })
