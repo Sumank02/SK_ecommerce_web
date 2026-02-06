@@ -79,6 +79,15 @@ buttonTag.appendChild(buttonLink)
 const buttonText = document.createTextNode('Place Order')
 buttonLink.appendChild(buttonText)
 
+// Validate product object has required fields
+function isValidProduct(product) {
+    return product && 
+           typeof product.id === 'number' && product.id > 0 &&
+           typeof product.name === 'string' && product.name.trim() !== '' &&
+           typeof product.preview === 'string' && product.preview !== '' &&
+           typeof product.price === 'number' && product.price >= 0;
+}
+
 // BACKEND CALL - Using Fetch API
 fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product')
     .then(response => response.json())
@@ -98,9 +107,14 @@ fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product')
 
         // Display items and calculate total
         for (const itemId in itemCount) {
-            const itemCounter = itemCount[itemId]
-            totalAmount += Number(contentTitle[itemId - 1].price) * itemCounter
-            dynamicCartSection(contentTitle[itemId - 1], itemCounter)
+            const itemCounter = itemCount[itemId];
+            const product = contentTitle[itemId - 1];
+            if (isValidProduct(product)) {
+                totalAmount += Number(product.price) * itemCounter;
+                dynamicCartSection(product, itemCounter);
+            } else {
+                console.warn('Skipping invalid product in cart:', itemId);
+            }
         }
         amountUpdate(totalAmount)
     })
