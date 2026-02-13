@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "name": "Classic Tee",
+    "preview": "https://via.placeholder.com/300x300.png?text=Classic+Tee",
+    "brand": "SimpleBrand",
+    "price": 499,
+    "description": "A comfortable classic tee made from breathable cotton.",
+    "isAccessory": false,
+    "photos": [
+      "https://via.placeholder.com/600x600.png?text=Classic+Tee+1",
+      "https://via.placeholder.com/600x600.png?text=Classic+Tee+2"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Slim Jeans",
+    "preview": "https://via.placeholder.com/300x300.png?text=Slim+Jeans",
+    "brand": "DenimCo",
+    "price": 1299,
+    "description": "Modern slim fit jeans with stretch for comfort.",
+    "isAccessory": false,
+    "photos": [
+      "https://via.placeholder.com/600x600.png?text=Slim+Jeans+1",
+      "https://via.placeholder.com/600x600.png?text=Slim+Jeans+2"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Leather Belt",
+    "preview": "https://via.placeholder.com/300x300.png?text=Leather+Belt",
+    "brand": "BuckleUp",
+    "price": 799,
+    "description": "Genuine leather belt with brushed metal buckle.",
+    "isAccessory": true,
+    "photos": [
+      "https://via.placeholder.com/600x600.png?text=Leather+Belt+1"
+    ]
+  }
+]
