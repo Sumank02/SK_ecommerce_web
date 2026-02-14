@@ -130,18 +130,42 @@ function dynamicContentDetails(ob)
     return mainContainer
 } 
 
-// BACKEND CALLING - Using Fetch API
-fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + id)
-    .then(response => response.json())
-    .then(contentDetails => {
-        if (isValidProduct(contentDetails)) {
-            dynamicContentDetails(contentDetails)
-        } else {
-            console.error('Invalid product data received:', contentDetails);
-            document.getElementById('containerProduct').innerHTML = '<p style="color: red;">Failed to load product details. Invalid data received.</p>';
+// BACKEND CALLING - Try remote API then fallback to local data
+const REMOTE_PRODUCT_URL = 'https://5d76bf96515d1a0014085cf9.mockapi.io/product/';
+const LOCAL_PRODUCTS_URL = 'data/products.json';
+
+async function loadProductDetails() {
+    if (!isValidProductId(id)) return;
+
+    try {
+        const res = await fetch(REMOTE_PRODUCT_URL + id);
+        if (!res.ok) throw new Error('Remote fetch failed: ' + res.status);
+        const data = await res.json();
+        if (isValidProduct(data)) {
+            dynamicContentDetails(data);
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Error fetching product details:', error);
+        throw new Error('Invalid product data from remote');
+    } catch (err) {
+        console.warn('Remote fetch failed, attempting local fallback:', err);
+    }
+
+    // Local fallback: load full products list and find the id
+    try {
+        const localRes = await fetch(LOCAL_PRODUCTS_URL);
+        if (!localRes.ok) throw new Error('Local fetch failed: ' + localRes.status);
+        const list = await localRes.json();
+        const found = list.find(p => Number(p.id) === Number(id));
+        if (isValidProduct(found)) {
+            dynamicContentDetails(found);
+            return;
+        }
+        console.error('Product not found in local fallback or invalid:', found);
+        document.getElementById('containerProduct').innerHTML = '<p style="color: red;">Failed to load product details. Product not found.</p>';
+    } catch (localErr) {
+        console.error('Failed to load product details from both remote and local:', localErr);
         document.getElementById('containerProduct').innerHTML = '<p style="color: red;">Failed to load product details. Please try again later.</p>';
-    })  
+    }
+}
+
+loadProductDetails();
