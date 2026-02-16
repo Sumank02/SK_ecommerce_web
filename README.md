@@ -49,8 +49,23 @@ Features
 📦 Static JavaScript Interactions
 
 - Basic cart functionality using JavaScript
+📡 Data & API
 
+**Remote API (Primary)**  
+By default, product data is fetched from an external mock API:
+```
+https://5d76bf96515d1a0014085cf9.mockapi.io/product
+```
 
+**Local Fallback (Offline)**  
+If the remote API is unavailable, the app automatically falls back to local product data stored at:
+```
+data/products.json
+```
+
+This ensures the app continues to work even when the remote API is down or unreachable. The local data file contains sample products and can be customized to reflect your store's catalog.
+
+**Note:** For production use, consider hosting your own API backend or using a more reliable data service. The current mock API is suitable for development and demonstration purposes only.
 📌 What You’ll See
 
 Inside the project you’ll find pages such as:

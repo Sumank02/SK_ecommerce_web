@@ -88,39 +88,63 @@ function isValidProduct(product) {
            typeof product.price === 'number' && product.price >= 0;
 }
 
-// BACKEND CALL - Using Fetch API
-fetch('https://5d76bf96515d1a0014085cf9.mockapi.io/product')
-    .then(response => response.json())
-    .then(contentTitle => {
-        const cart = JSON.parse(localStorage.getItem('cart'))
-        const counter = cart.counter
-        document.getElementById("totalItem").innerHTML = ('Total Items: ' + counter)
+// BACKEND CALL - Try remote API then fallback to local data
+const REMOTE_PRODUCTS_URL = 'https://5d76bf96515d1a0014085cf9.mockapi.io/product';
+const LOCAL_PRODUCTS_URL = 'data/products.json';
 
-        const items = cart.items
-        let totalAmount = 0
-        
-        // Count occurrences of each item
-        const itemCount = {}
-        for (let i = 0; i < items.length; i++) {
-            itemCount[items[i]] = (itemCount[items[i]] || 0) + 1
-        }
+async function loadCartProducts() {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    const counter = cart.counter;
+    document.getElementById("totalItem").innerHTML = ('Total Items: ' + counter);
 
-        // Display items and calculate total
-        for (const itemId in itemCount) {
-            const itemCounter = itemCount[itemId];
-            const product = contentTitle[itemId - 1];
-            if (isValidProduct(product)) {
-                totalAmount += Number(product.price) * itemCounter;
-                dynamicCartSection(product, itemCounter);
-            } else {
-                console.warn('Skipping invalid product in cart:', itemId);
-            }
+    const items = cart.items;
+    let totalAmount = 0;
+
+    // Count occurrences of each item
+    const itemCount = {};
+    for (let i = 0; i < items.length; i++) {
+        itemCount[items[i]] = (itemCount[items[i]] || 0) + 1;
+    }
+
+    let products = null;
+
+    // Try remote first
+    try {
+        const res = await fetch(REMOTE_PRODUCTS_URL);
+        if (!res.ok) throw new Error('Remote fetch failed: ' + res.status);
+        products = await res.json();
+    } catch (err) {
+        console.warn('Remote fetch failed, attempting local fallback:', err);
+    }
+
+    // Fall back to local if remote failed
+    if (!products) {
+        try {
+            const localRes = await fetch(LOCAL_PRODUCTS_URL);
+            if (!localRes.ok) throw new Error('Local fetch failed: ' + localRes.status);
+            products = await localRes.json();
+        } catch (localErr) {
+            console.error('Failed to load products from both remote and local:', localErr);
+            return;
         }
-        amountUpdate(totalAmount)
-    })
-    .catch(error => {
-        console.error('Error fetching products:', error)
-    })
+    }
+
+    // Display items and calculate total
+    for (const itemId in itemCount) {
+        const itemCounter = itemCount[itemId];
+        const product = products[itemId - 1];
+        if (isValidProduct(product)) {
+            totalAmount += Number(product.price) * itemCounter;
+            dynamicCartSection(product, itemCounter);
+        } else {
+            console.warn('Skipping invalid product in cart:', itemId);
+        }
+    }
+    amountUpdate(totalAmount);
+}
+
+// Load products for cart
+loadCartProducts();
 
 
 
