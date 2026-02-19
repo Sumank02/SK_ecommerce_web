@@ -24,37 +24,71 @@
     <!-- HEADER END -->
 
     <div class="container">
-        <div class="form-container" id="loginFormContainer">
-            <h2>Login</h2>
-            <form id="loginForm">
+        <div class="form-container" id="loginFormContainer" role="region" aria-labelledby="loginTitle">
+            <h2 id="loginTitle">Login</h2>
+            <form id="loginForm" aria-label="User login form">
                 <div class="input-group">
                     <label for="loginUsername">Username</label>
-                    <input type="text" id="loginUsername" required>
+                    <input 
+                        type="text" 
+                        id="loginUsername" 
+                        aria-label="Username"
+                        aria-required="true"
+                        aria-describedby="loginErrorMessage"
+                        required>
                 </div>
                 <div class="input-group">
                     <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" required>
+                    <input 
+                        type="password" 
+                        id="loginPassword" 
+                        aria-label="Password"
+                        aria-required="true"
+                        aria-describedby="loginErrorMessage"
+                        required>
                 </div>
-                <button type="submit">Login</button>
-                <p id="loginErrorMessage" class="error-message"></p>
-                <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+                <button type="submit" aria-label="Submit login form">Login</button>
+                <p 
+                    id="loginErrorMessage" 
+                    class="error-message"
+                    role="alert"
+                    aria-live="polite"
+                    aria-atomic="true"></p>
+                <p>Don't have an account? <a href="#" id="showSignup" aria-label="Switch to signup form">Sign up</a></p>
             </form>
         </div>
 
-        <div class="form-container" id="signupFormContainer" style="display: none;">
-            <h2>Signup</h2>
-            <form id="signupForm">
+        <div class="form-container" id="signupFormContainer" style="display: none;" role="region" aria-labelledby="signupTitle">
+            <h2 id="signupTitle">Signup</h2>
+            <form id="signupForm" aria-label="User signup form">
                 <div class="input-group">
                     <label for="signupUsername">Username</label>
-                    <input type="text" id="signupUsername" required>
+                    <input 
+                        type="text" 
+                        id="signupUsername" 
+                        aria-label="Username (at least 3 characters)"
+                        aria-required="true"
+                        aria-describedby="signupErrorMessage"
+                        required>
                 </div>
                 <div class="input-group">
                     <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" required>
+                    <input 
+                        type="password" 
+                        id="signupPassword" 
+                        aria-label="Password (at least 6 characters)"
+                        aria-required="true"
+                        aria-describedby="signupErrorMessage"
+                        required>
                 </div>
-                <button type="submit">Sign Up</button>
-                <p id="signupErrorMessage" class="error-message"></p>
-                <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+                <button type="submit" aria-label="Submit signup form">Sign Up</button>
+                <p 
+                    id="signupErrorMessage" 
+                    class="error-message"
+                    role="alert"
+                    aria-live="polite"
+                    aria-atomic="true"></p>
+                <p>Already have an account? <a href="#" id="showLogin" aria-label="Switch to login form">Login</a></p>
             </form>
         </div>
     </div>
